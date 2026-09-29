@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+:root {
+  --color-ivory: #f5f1e8;
+  --color-parchment: #e9e0cf;
+  --color-deep-green: #17352d;
+  --color-forest: #23483d;
+  --color-charcoal: #1d211e;
+  --color-gold: #b69a68;
+  --color-burgundy: #6e2929;
+}
+
+@theme inline {
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+
+  --color-ivory: var(--color-ivory);
+  --color-parchment: var(--color-parchment);
+  --color-deep-green: var(--color-deep-green);
+  --color-forest: var(--color-forest);
+  --color-charcoal: var(--color-charcoal);
+  --color-gold: var(--color-gold);
+  --color-burgundy: var(--color-burgundy);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-charcoal);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.hairline {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.15;
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero-image {
+  animation: hero-zoom 9s ease-out forwards;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes scroll-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+.animate-scroll-hint {
+  animation: scroll-hint 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-image,
+  .animate-fade-up,
+  .animate-scroll-hint {
+    animation: none;
+    opacity: 1;
+  }
+}
