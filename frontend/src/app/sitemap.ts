@@ -1,15 +1,22 @@
 import type { MetadataRoute } from "next";
-import { journeys } from "@/data/journeys";
+import { getDestinations, getJourneys } from "@/lib/queries";
+import { site } from "@/data/site";
 
-const siteUrl = "https://thekashmirtravels.com";
+const siteUrl = site.url;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [journeys, destinations] = await Promise.all([
+    getJourneys(),
+    getDestinations(),
+  ]);
+
   const staticRoutes = [
     "",
     "/journeys",
     "/destinations",
     "/experiences",
     "/about",
+    "/plan-trip",
     "/contact",
   ].map((route) => ({
     url: `${siteUrl}${route}`,
@@ -21,5 +28,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  return [...staticRoutes, ...journeyRoutes];
+  const destinationRoutes = destinations.map((destination) => ({
+    url: `${siteUrl}/destinations/${destination.slug}`,
+    lastModified: new Date(),
+  }));
+
+  return [...staticRoutes, ...destinationRoutes, ...journeyRoutes];
 }

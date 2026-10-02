@@ -1,0 +1,22 @@
+
+> frontend@0.1.0 dev
+> next dev
+
+▲ Next.js 16.3.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.20.128.1:3000
+- Environments: .env.local
+✓ Ready in 1585ms
+✓ Running next.config.ts took 123ms
+
+ GET /admin/login?next=%2Fadmin 200 in 2.2s (next.js: 1018ms, proxy.ts: 672ms, application-code: 522ms)
+ GET /admin/login 200 in 105ms (next.js: 27ms, proxy.ts: 8ms, application-code: 70ms)
+ POST /api/auth/login 401 in 1216ms (next.js: 248ms, application-code: 968ms)
+ POST /api/auth/login 200 in 32ms (next.js: 6ms, application-code: 26ms)
+ GET /admin/destinations 200 in 1666ms (next.js: 1187ms, proxy.ts: 14ms, application-code: 465ms)
+ GET /admin/journeys 200 in 649ms (next.js: 410ms, proxy.ts: 8ms, application-code: 230ms)
+ GET /admin/requests 200 in 747ms (next.js: 458ms, proxy.ts: 12ms, application-code: 276ms)
+ GET /admin/destinations 200 in 151ms (next.js: 16ms, proxy.ts: 15ms, application-code: 120ms)
+ GET /admin/destinations 200 in 176ms (next.js: 17ms, proxy.ts: 12ms, application-code: 147ms)
+ GET /admin/login 200 in 201ms (next.js: 100ms, proxy.ts: 9ms, application-code: 92ms)
+[?25h

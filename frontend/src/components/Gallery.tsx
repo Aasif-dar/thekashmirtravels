@@ -1,27 +1,32 @@
 import Image from "next/image";
-import { images } from "@/data/images";
+import { site } from "@/data/site";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 
-const items = [
-  { image: images.dalLakeChinarIslands, span: "sm:col-span-2 sm:row-span-2" },
-  { image: images.gulmargSnow, span: "sm:row-span-1" },
-  { image: images.srinagarMosque, span: "sm:row-span-1" },
-  { image: images.betaabValley, span: "sm:row-span-2" },
-  { image: images.houseboat, span: "sm:col-span-2" },
-  { image: images.thajiwasGlacier, span: "sm:row-span-1" },
-  { image: images.chinarSquare, span: "sm:row-span-1" },
-  { image: images.flowerSeller, span: "sm:col-span-2 sm:row-span-2" },
-  { image: images.mughalGarden, span: "sm:row-span-1" },
+const spans = [
+  "sm:col-span-2 sm:row-span-2",
+  "sm:row-span-1",
+  "sm:row-span-1",
+  "sm:row-span-2",
+  "sm:col-span-2",
+  "sm:row-span-1",
+  "sm:row-span-1",
+  "sm:col-span-2 sm:row-span-2",
+  "sm:row-span-1",
 ];
+
+const items = site.gallery.photos.map((image, index) => ({
+  image,
+  span: spans[index % spans.length],
+}));
 
 export default function Gallery() {
   return (
     <section id="gallery" className="bg-charcoal px-6 py-24 sm:px-10 sm:py-32">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="A Visual Kashmir"
-          title="Notes from the Valley"
+          eyebrow={site.gallery.eyebrow}
+          title={site.gallery.title}
           tone="light"
         />
 

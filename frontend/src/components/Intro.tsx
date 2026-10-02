@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import { site } from "@/data/site";
 
 export default function Intro() {
   return (
@@ -6,19 +7,20 @@ export default function Intro() {
       <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-2 md:gap-20">
         <Reveal>
           <h2 className="font-serif text-3xl leading-snug font-normal text-charcoal sm:text-4xl">
-            Not just a trip to Kashmir.
+            {site.intro.heading}
           </h2>
         </Reveal>
         <Reveal delay={120}>
           <p className="text-lg leading-relaxed text-charcoal/75 sm:text-xl">
-            We design journeys around the way you want to experience the
-            valley — from quiet mornings on Dal Lake to snow-covered Gulmarg
-            and slow evenings beside the Lidder.
+            {site.intro.body}
           </p>
           <div className="mt-8 flex items-center gap-3 text-[12px] font-medium tracking-[0.15em] text-deep-green/80 uppercase">
-            <span>Locally based</span>
-            <span className="h-1 w-1 rounded-full bg-gold" />
-            <span>Personally planned</span>
+            {site.intro.highlights.map((item, index) => (
+              <span key={item} className="flex items-center gap-3">
+                {index > 0 && <span className="h-1 w-1 rounded-full bg-gold" />}
+                {item}
+              </span>
+            ))}
           </div>
         </Reveal>
       </div>

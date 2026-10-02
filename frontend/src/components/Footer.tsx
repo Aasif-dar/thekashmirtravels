@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { contact, whatsappLink } from "@/data/contact";
+import { site } from "@/data/site";
 
 const nav = [
   { href: "/journeys", label: "Journeys" },
@@ -16,11 +17,10 @@ export default function Footer() {
         <div className="grid gap-12 sm:grid-cols-3">
           <div>
             <p className="font-serif text-xl text-ivory">
-              The Kashmir Travels
+              {site.brandName}
             </p>
             <p className="mt-4 max-w-xs text-[15px] leading-relaxed text-ivory/65">
-              Journeys through Kashmir, planned by people who call the valley
-              home.
+              {site.footer.blurb}
             </p>
           </div>
 
@@ -68,10 +68,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={`https://instagram.com/${contact.instagram.replace(
-                    "@",
-                    ""
-                  )}`}
+                  href={contact.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-colors hover:text-ivory"
@@ -84,7 +81,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col gap-4 border-t border-ivory/15 pt-8 text-[13px] text-ivory/50 sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; {new Date().getFullYear()} The Kashmir Travels</p>
+          <p>&copy; {new Date().getFullYear()} {site.brandName}</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-ivory/80">
               Privacy Policy

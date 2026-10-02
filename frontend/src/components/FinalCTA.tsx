@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { images } from "@/data/images";
+import { site } from "@/data/site";
 import { whatsappLink } from "@/data/contact";
 import Reveal from "./Reveal";
 
@@ -9,8 +9,8 @@ export default function FinalCTA() {
     <section className="relative flex min-h-[560px] items-center overflow-hidden bg-charcoal px-6 py-28 sm:px-10">
       <div className="absolute inset-0">
         <Image
-          src={images.dalLakeWide.src}
-          alt={images.dalLakeWide.alt}
+          src={site.finalCta.image.src}
+          alt={site.finalCta.image.alt}
           fill
           sizes="100vw"
           className="object-cover"
@@ -21,14 +21,14 @@ export default function FinalCTA() {
       <div className="relative mx-auto max-w-3xl text-center">
         <Reveal>
           <h2 className="font-serif text-4xl leading-[1.15] text-ivory sm:text-5xl">
-            Your Kashmir story starts here.
+            {site.finalCta.heading}
           </h2>
           <p className="mt-6 text-base leading-relaxed text-ivory/80 sm:text-lg">
-            Tell us how you want to travel. We&apos;ll help shape the rest.
+            {site.finalCta.body}
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
             <Link
-              href="/contact"
+              href="/plan-trip"
               className="bg-ivory px-8 py-3.5 text-[13px] font-medium tracking-[0.08em] text-deep-green uppercase transition-colors hover:bg-parchment"
             >
               Plan My Trip

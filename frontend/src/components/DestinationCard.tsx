@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import type { Destination } from "@/data/destinations";
+import type { Destination } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export default function DestinationCard({
@@ -17,15 +17,15 @@ export default function DestinationCard({
 }) {
   return (
     <Link
-      href={`/destinations#${destination.slug}`}
+      href={`/destinations/${destination.slug}`}
       className={cn(
         "group relative block h-full w-full overflow-hidden",
         className
       )}
     >
       <Image
-        src={destination.image.src}
-        alt={destination.image.alt}
+        src={destination.coverImage.src}
+        alt={destination.coverImage.alt}
         fill
         sizes={imageSizes}
         priority={priority}
@@ -37,7 +37,7 @@ export default function DestinationCard({
         <div className="flex items-end justify-between gap-4">
           <div>
             <h3 className="font-serif text-2xl text-ivory sm:text-3xl">
-              {destination.name}
+              {destination.title}
             </h3>
             <p className="mt-1 font-serif text-base text-ivory/80 italic">
               {destination.tagline}

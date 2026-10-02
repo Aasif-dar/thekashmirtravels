@@ -1,18 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
+import BookJourney from "@/components/request/BookJourney";
 import { ArrowRight } from "lucide-react";
-import type { Journey } from "@/data/journeys";
+import type { Journey } from "@/lib/types";
 
-export default function JourneyCard({ journey }: { journey: Journey }) {
+export default function JourneyCard({
+  journey,
+  route,
+}: {
+  journey: Journey;
+  route: string[];
+}) {
   return (
-    <Link
-      href={`/journeys/${journey.slug}`}
-      className="group grid grid-cols-1 gap-6 border-t border-charcoal/12 py-10 first:border-t-0 first:pt-0 sm:grid-cols-12 sm:gap-8"
+    <div
+      className="group relative grid grid-cols-1 gap-6 border-t border-charcoal/12 py-10 first:border-t-0 first:pt-0 sm:grid-cols-12 sm:gap-8"
     >
       <div className="relative aspect-[4/3] overflow-hidden sm:col-span-4">
         <Image
-          src={journey.cardImage.src}
-          alt={journey.cardImage.alt}
+          src={journey.coverImage.src}
+          alt={journey.coverImage.alt}
           fill
           sizes="(min-width: 640px) 33vw, 100vw"
           className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]"
@@ -30,27 +36,44 @@ export default function JourneyCard({ journey }: { journey: Journey }) {
             </span>
           </div>
           <p className="mt-2 text-sm text-charcoal/60">
-            {journey.route.join(" · ")}
+            {route.join(" · ")}
           </p>
           <p className="mt-1 text-sm text-gold">{journey.forWhom}</p>
           <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-charcoal/70">
-            {journey.summary}
+            {journey.description}
           </p>
         </div>
 
         <div className="mt-6 flex items-center justify-between">
           <span className="text-[12px] font-medium tracking-[0.15em] text-charcoal/50 uppercase">
-            Price on request
+            {journey.price
+              ? `From ₹${journey.price.toLocaleString("en-IN")}`
+              : "Price on request"}
           </span>
-          <span className="flex items-center gap-2 text-[13px] font-medium tracking-[0.08em] text-deep-green uppercase">
-            View Journey
-            <ArrowRight
-              size={16}
-              className="transition-transform duration-300 group-hover:translate-x-1"
+          <div className="flex items-center gap-6">
+            <BookJourney
+              journey={{
+                slug: journey.slug,
+                title: journey.title,
+                duration: journey.duration,
+                price: journey.price,
+              }}
+              label="Book this journey"
+              className="relative z-10 border border-deep-green px-5 py-2 text-[12px] font-medium tracking-[0.08em] text-deep-green uppercase transition-colors hover:bg-deep-green hover:text-ivory"
             />
-          </span>
+            <Link
+              href={`/journeys/${journey.slug}`}
+              className="flex items-center gap-2 text-[13px] font-medium tracking-[0.08em] text-deep-green uppercase after:absolute after:inset-0"
+            >
+              View Journey
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+          </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

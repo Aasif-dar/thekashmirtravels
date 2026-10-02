@@ -6,10 +6,19 @@ import { Check, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import { journeys, getJourneyBySlug } from "@/data/journeys";
+import BookJourney from "@/components/request/BookJourney";
+import WhatsAppTopic from "@/components/WhatsAppTopic";
+import {
+  getDestinations,
+  getJourneyBySlug,
+  getJourneys,
+  routeNames,
+} from "@/lib/queries";
 
-export function generateStaticParams() {
-  return journeys.map((journey) => ({ slug: journey.slug }));
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  return (await getJourneys()).map((journey) => ({ slug: journey.slug }));
 }
 
 export async function generateMetadata({
@@ -18,12 +27,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const journey = getJourneyBySlug(slug);
+  const journey = await getJourneyBySlug(slug);
   if (!journey) return {};
 
   return {
     title: journey.title,
-    description: journey.summary,
+    description: journey.description,
   };
 }
 
@@ -33,17 +42,19 @@ export default async function JourneyDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const journey = getJourneyBySlug(slug);
+  const journey = await getJourneyBySlug(slug);
   if (!journey) notFound();
+  const route = routeNames(journey, await getDestinations());
 
   return (
     <>
+      <WhatsAppTopic name={journey.title} />
       <Navbar />
       <main>
         <section className="relative flex h-[64vh] min-h-[460px] items-end overflow-hidden bg-charcoal">
           <Image
-            src={journey.heroImage.src}
-            alt={journey.heroImage.alt}
+            src={(journey.heroImage ?? journey.coverImage).src}
+            alt={(journey.heroImage ?? journey.coverImage).alt}
             fill
             priority
             sizes="100vw"
@@ -53,12 +64,15 @@ export default async function JourneyDetailPage({
           <div className="relative mx-auto w-full min-w-0 max-w-5xl px-6 pb-16 sm:px-10">
             <p className="text-[11px] font-medium tracking-[0.3em] text-ivory/75 uppercase">
               {journey.duration}
+              {journey.price
+                ? ` · From ₹${journey.price.toLocaleString("en-IN")}`
+                : ""}
             </p>
             <h1 className="mt-4 max-w-2xl font-serif text-4xl text-ivory sm:text-5xl">
               {journey.title}
             </h1>
             <p className="mt-4 text-sm text-ivory/80">
-              {journey.route.join(" · ")}
+              {route.join(" · ")}
             </p>
           </div>
         </section>
@@ -67,7 +81,7 @@ export default async function JourneyDetailPage({
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <p className="font-serif text-xl leading-relaxed text-charcoal sm:text-2xl">
-                {journey.summary}
+                {journey.description}
               </p>
             </Reveal>
           </div>
@@ -82,7 +96,7 @@ export default async function JourneyDetailPage({
             </Reveal>
 
             <div className="mt-12">
-              {journey.days.map((day, index) => (
+              {journey.itinerary.map((day, index) => (
                 <Reveal
                   key={day.day}
                   delay={Math.min(index * 60, 300)}
@@ -111,6 +125,27 @@ export default async function JourneyDetailPage({
           </div>
         </section>
 
+        {journey.images.length > 0 && (
+          <section className="bg-ivory px-6 pb-24 sm:px-10">
+            <div className="mx-auto grid max-w-5xl gap-3 sm:grid-cols-3">
+              {journey.images.map((image) => (
+                <div
+                  key={image.src}
+                  className="relative aspect-[4/3] overflow-hidden"
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(min-width: 640px) 33vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section className="bg-parchment px-6 py-20 sm:px-10">
           <div className="mx-auto grid max-w-3xl gap-12 sm:grid-cols-2">
             <Reveal>
@@ -118,7 +153,7 @@ export default async function JourneyDetailPage({
                 What&apos;s Included
               </h3>
               <ul className="mt-6 space-y-3">
-                {journey.included.map((item) => (
+                {journey.inclusions.map((item) => (
                   <li
                     key={item}
                     className="flex items-start gap-3 text-[15px] text-charcoal/75"
@@ -137,7 +172,7 @@ export default async function JourneyDetailPage({
                 Not Included
               </h3>
               <ul className="mt-6 space-y-3">
-                {journey.notIncluded.map((item) => (
+                {journey.exclusions.map((item) => (
                   <li
                     key={item}
                     className="flex items-start gap-3 text-[15px] text-charcoal/75"
@@ -177,11 +212,20 @@ export default async function JourneyDetailPage({
             <h3 className="font-serif text-3xl text-ivory">
               Ready to plan {journey.title}?
             </h3>
-            <Link
-              href={`/contact?journey=${encodeURIComponent(journey.title)}`}
+            <BookJourney
+              journey={{
+                slug: journey.slug,
+                title: journey.title,
+                duration: journey.duration,
+                price: journey.price,
+              }}
               className="mt-8 inline-block bg-ivory px-8 py-3.5 text-[13px] font-medium tracking-[0.08em] text-deep-green uppercase transition-colors hover:bg-parchment"
+            />
+            <Link
+              href="/plan-trip"
+              className="mt-6 block text-[13px] font-medium tracking-[0.08em] text-ivory/80 uppercase underline-offset-4 hover:underline"
             >
-              Plan This Journey
+              Or plan a custom trip
             </Link>
           </Reveal>
         </section>

@@ -1,4 +1,4 @@
-import { testimonials } from "@/data/testimonials";
+import { site } from "@/data/site";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
 
@@ -14,7 +14,7 @@ export default function Testimonials() {
         />
 
         <div className="mt-16 grid gap-12 sm:grid-cols-3 sm:gap-8">
-          {testimonials.map((testimonial, index) => (
+          {site.testimonials.map((testimonial, index) => (
             <Reveal key={testimonial.name} delay={index * 120}>
               <blockquote className="flex h-full flex-col">
                 <p className="font-serif text-lg leading-relaxed text-charcoal italic sm:text-xl">

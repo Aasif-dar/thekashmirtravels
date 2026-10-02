@@ -11,6 +11,10 @@ import Testimonials from "@/components/Testimonials";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 
+// Public pages are statically generated and refreshed hourly; admin edits
+// trigger revalidatePath for an immediate update.
+export const revalidate = 3600;
+
 export default function Home() {
   return (
     <>

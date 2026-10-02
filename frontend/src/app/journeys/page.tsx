@@ -3,7 +3,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JourneyCard from "@/components/JourneyCard";
-import { journeys } from "@/data/journeys";
+import { getDestinations, getJourneys, routeNames } from "@/lib/queries";
 import { images } from "@/data/images";
 
 export const metadata: Metadata = {
@@ -12,7 +12,14 @@ export const metadata: Metadata = {
     "A small set of curated Kashmir itineraries — the classic route, a slower pace, winter in the snow, and journeys built for two.",
 };
 
-export default function JourneysPage() {
+export const revalidate = 3600;
+
+export default async function JourneysPage() {
+  const [journeys, destinations] = await Promise.all([
+    getJourneys(),
+    getDestinations(),
+  ]);
+
   return (
     <>
       <Navbar />
@@ -40,7 +47,11 @@ export default function JourneysPage() {
         <section className="bg-parchment px-6 py-20 sm:px-10 sm:py-28">
           <div className="mx-auto max-w-6xl">
             {journeys.map((journey) => (
-              <JourneyCard key={journey.slug} journey={journey} />
+              <JourneyCard
+                key={journey.slug}
+                journey={journey}
+                route={routeNames(journey, destinations)}
+              />
             ))}
           </div>
         </section>

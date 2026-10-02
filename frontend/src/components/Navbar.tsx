@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { site } from "@/data/site";
 
 const links = [
   { href: "/journeys", label: "Journeys" },
@@ -48,7 +49,7 @@ export default function Navbar() {
           )}
           onClick={() => setOpen(false)}
         >
-          The Kashmir Travels
+          {site.logo.text}
         </Link>
 
         <div className="hidden items-center gap-10 md:flex">
@@ -65,7 +66,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="/contact"
+            href="/plan-trip"
             className={cn(
               "border px-6 py-2.5 text-[13px] font-medium tracking-[0.08em] uppercase transition-colors",
               scrolled
@@ -109,7 +110,7 @@ export default function Navbar() {
               </Link>
             ))}
             <Link
-              href="/contact"
+              href="/plan-trip"
               onClick={() => setOpen(false)}
               className="mt-6 border border-deep-green px-6 py-3 text-center text-[13px] font-medium tracking-[0.08em] text-deep-green uppercase"
             >

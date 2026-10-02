@@ -5,11 +5,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { images } from "@/data/images";
+import { site } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "The Kashmir Travels is a locally based team planning personal journeys through the valley — beyond the standard itinerary.",
+  description: site.about.description,
 };
 
 export default function AboutPage() {
@@ -121,7 +121,7 @@ export default function AboutPage() {
               Let&apos;s talk about your Kashmir.
             </h3>
             <Link
-              href="/contact"
+              href="/plan-trip"
               className="mt-8 inline-block bg-ivory px-8 py-3.5 text-[13px] font-medium tracking-[0.08em] text-deep-green uppercase transition-colors hover:bg-parchment"
             >
               Plan Your Trip
