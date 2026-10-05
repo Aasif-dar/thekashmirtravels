@@ -1,4 +1,6 @@
 import { images } from "./images";
+// TEMPORARY UI DATA — see addData.ts. Replace with real backend/admin data later.
+import { dummyExperiences } from "./addData";
 
 export type Experience = {
   title: string;
@@ -6,36 +8,8 @@ export type Experience = {
   image: (typeof images)[keyof typeof images];
 };
 
-export const experiences: Experience[] = [
-  {
-    title: "Morning on Dal Lake",
-    description: "A quiet shikara ride before the lake wakes.",
-    image: images.shikara,
-  },
-  {
-    title: "A Night on a Houseboat",
-    description: "Experience Kashmir's floating heritage.",
-    image: images.houseboat,
-  },
-  {
-    title: "Wazwan, Slowly Served",
-    description:
-      "A multi-course Kashmiri feast, eaten the traditional way — unhurried, and shared.",
-    image: images.wazwan,
-  },
-  {
-    title: "Gulmarg in Winter",
-    description: "Snow-covered meadows and mountain air.",
-    image: images.gulmargSnow,
-  },
-  {
-    title: "Pahalgam by the River",
-    description: "A slower side of Kashmir.",
-    image: images.lidderRiver,
-  },
-  {
-    title: "Kashmir After Autumn",
-    description: "Chinar-lined roads and golden landscapes.",
-    image: images.chinarAutumn,
-  },
-];
+// ADMIN: experiences are meant to be managed by the admin (see ADMIN_DATA_GUIDE.md).
+// Temporary fictional content from addData.ts, shown until real experiences are
+// added here or loaded from the backend. Set this back to [] to show the
+// "New experiences are coming soon." empty state.
+export const experiences: Experience[] = dummyExperiences; // TEMPORARY UI DATA

@@ -2,7 +2,11 @@ import Image from "next/image";
 import { experiences } from "@/data/experiences";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
+import EmptyState from "./EmptyState";
 
+// ADMIN: experiences are not backed by the database yet; they come from
+// src/data/experiences.ts. Fields: title, description, image. See
+// ADMIN_DATA_GUIDE.md for the full list the admin should eventually manage.
 export default function Experiences() {
   return (
     <section id="experiences" className="bg-deep-green px-6 py-24 sm:px-10 sm:py-32">
@@ -12,6 +16,10 @@ export default function Experiences() {
           title="A Handful of Moments Worth Building a Day Around"
           tone="light"
         />
+
+        {!experiences.length && (
+          <EmptyState message="New experiences are coming soon." tone="light" />
+        )}
 
         <div className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {experiences.map((experience, index) => (

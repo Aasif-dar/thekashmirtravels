@@ -4,9 +4,10 @@ import { journeys as legacyJourneys } from "@/data/journeys";
 import type { DestinationInput, JourneyInput } from "@/lib/types";
 
 /**
- * The original hardcoded destinations/journeys, mapped to the DB shape.
- * Used by the seed script, and as a fallback when the DB is not configured
- * or unreachable (e.g. a local build without MONGODB_URI).
+ * Records that `npm run seed` inserts into MongoDB. The project ships with NO
+ * sample data, so these are empty and the seed script is a no-op. Real content
+ * is added through the admin panel (see ADMIN_DATA_GUIDE.md); only add records
+ * to the legacy files in src/data if you deliberately want them seeded.
  */
 export const seedDestinations: DestinationInput[] = legacyDestinations.map(
   (destination) => {

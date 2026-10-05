@@ -2,12 +2,14 @@ import { getDestinations } from "@/lib/queries";
 import DestinationCard from "./DestinationCard";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
+import EmptyState from "./EmptyState";
 
+// ADMIN: expects destination records from the backend (featured ones; all if none are featured).
+// Required: title, slug, tagline, coverImage, featured. See ADMIN_DATA_GUIDE.md.
 export default async function Destinations() {
   const featured = await getDestinations({ featured: true });
   const list = featured.length ? featured : await getDestinations();
   const [first, second, third, fourth, ...rest] = list;
-  if (!first) return null;
 
   return (
     <section id="destinations" className="bg-ivory px-6 py-24 sm:px-10 sm:py-32">
@@ -20,38 +22,42 @@ export default async function Destinations() {
           />
         </div>
 
-        <div className="mt-14 grid gap-4 md:grid-cols-12 md:gap-4">
-          <Reveal
-            className={second ? "md:col-span-7" : "md:col-span-12"}
-            delay={0}
-          >
-            <DestinationCard
-              destination={first}
-              className="aspect-[4/5] sm:aspect-[16/13] md:aspect-auto md:h-[560px]"
-              imageSizes="(min-width: 768px) 58vw, 100vw"
-              priority
-            />
-          </Reveal>
+        {!first && <EmptyState message="No destinations available yet." />}
 
-          {second && (
-            <div className="grid gap-4 md:col-span-5">
-              <Reveal delay={150}>
-                <DestinationCard
-                  destination={second}
-                  className="aspect-[16/11] md:h-[270px]"
-                />
-              </Reveal>
-              {third && (
-                <Reveal delay={250}>
+        {first && (
+          <div className="mt-14 grid gap-4 md:grid-cols-12 md:gap-4">
+            <Reveal
+              className={second ? "md:col-span-7" : "md:col-span-12"}
+              delay={0}
+            >
+              <DestinationCard
+                destination={first}
+                className="aspect-[4/5] sm:aspect-[16/13] md:aspect-auto md:h-[560px]"
+                imageSizes="(min-width: 768px) 58vw, 100vw"
+                priority
+              />
+            </Reveal>
+
+            {second && (
+              <div className="grid gap-4 md:col-span-5">
+                <Reveal delay={150}>
                   <DestinationCard
-                    destination={third}
+                    destination={second}
                     className="aspect-[16/11] md:h-[270px]"
                   />
                 </Reveal>
-              )}
-            </div>
-          )}
-        </div>
+                {third && (
+                  <Reveal delay={250}>
+                    <DestinationCard
+                      destination={third}
+                      className="aspect-[16/11] md:h-[270px]"
+                    />
+                  </Reveal>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         {fourth && (
           <Reveal delay={100} className="mt-4">

@@ -1,4 +1,7 @@
 import { images, type SiteImage } from "./images";
+// TEMPORARY UI DATA — see addData.ts. Replace with real backend/admin data later.
+// To remove: delete addData.ts and the four dummy* lines below.
+import { dummyFaqs, dummyGallery, dummyTestimonials } from "./addData";
 
 export interface Testimonial {
   quote: string;
@@ -41,8 +44,8 @@ export interface SiteConfig {
 
 export const site: SiteConfig = {
   url: "https://thekashmirtravels.com",
-  brandName: "The Kashmir Travels",
-  logo: { text: "The Kashmir Travels" },
+  brandName: "Fastpacker",
+  logo: { text: "Fastpacker" },
   tagline: "Curated Journeys Through Kashmir",
   hero: {
     eyebrow: "Kashmir • India",
@@ -60,44 +63,17 @@ export const site: SiteConfig = {
   },
   about: {
     description:
-      "The Kashmir Travels is a locally based team planning personal journeys through the valley — beyond the standard itinerary.",
+      "Fastpacker is a locally based team planning personal journeys through the valley — beyond the standard itinerary.",
   },
   gallery: {
     eyebrow: "A Visual Kashmir",
     title: "Notes from the Valley",
-    photos: [
-      images.dalLakeChinarIslands,
-      images.gulmargSnow,
-      images.srinagarMosque,
-      images.betaabValley,
-      images.houseboat,
-      images.thajiwasGlacier,
-      images.chinarSquare,
-      images.flowerSeller,
-      images.mughalGarden,
-    ],
+    photos: dummyGallery, // TEMPORARY UI DATA
   },
-  testimonials: [
-    {
-      quote:
-        "The itinerary never felt rushed. They showed us a side of Kashmir we wouldn't have found ourselves.",
-      name: "Rahul & Priya",
-      location: "Mumbai",
-    },
-    {
-      quote:
-        "Our host in Srinagar knew exactly when to suggest something and when to just let us sit by the lake.",
-      name: "Aditi Sharma",
-      location: "Bengaluru",
-    },
-    {
-      quote:
-        "Gurez wasn't even on our radar until they suggested it. It ended up being the best two days of the trip.",
-      name: "Farhan Ahmed",
-      location: "Delhi",
-    },
-  ],
-  faqs: [],
+  // ADMIN: real traveler testimonials (customerName, customerLocation, review,
+  // rating, customerImage, published, sortOrder) go here or come from the backend.
+  testimonials: dummyTestimonials, // TEMPORARY UI DATA
+  faqs: dummyFaqs, // TEMPORARY UI DATA
   finalCta: {
     heading: "Your Kashmir story starts here.",
     body: "Tell us how you want to travel. We'll help shape the rest.",
@@ -107,10 +83,11 @@ export const site: SiteConfig = {
     blurb: "Journeys through Kashmir, planned by people who call the valley home.",
   },
   seo: {
-    title: "The Kashmir Travels | Curated Journeys Through Kashmir",
+    title: "Fastpacker | Kashmir Travel & Tours",
     description:
-      "Discover Kashmir through thoughtfully planned journeys, handpicked stays and authentic local experiences across Srinagar, Gulmarg, Pahalgam and beyond.",
+      "Fastpacker is a Kashmir-based tour and travel company. Discover Kashmir through thoughtfully planned journeys, handpicked stays and authentic local experiences across Srinagar, Gulmarg, Pahalgam and beyond.",
     keywords: [
+      "Fastpacker",
       "Kashmir travel",
       "Kashmir tour package",
       "Srinagar houseboat",

@@ -8,7 +8,7 @@ import { contact, whatsappLink } from "@/data/contact";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Reach The Kashmir Travels by WhatsApp or email, book a journey, or tell us about a custom trip.",
+    "Reach Fastpacker by WhatsApp or email, book a journey, or tell us about a custom trip.",
 };
 
 export default function ContactPage() {

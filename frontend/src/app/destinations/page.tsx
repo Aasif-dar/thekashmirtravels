@@ -3,6 +3,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DestinationSection from "@/components/DestinationSection";
+import EmptyState from "@/components/EmptyState";
 import { getDestinations } from "@/lib/queries";
 import { images } from "@/data/images";
 
@@ -40,6 +41,12 @@ export default async function DestinationsPage() {
             </h1>
           </div>
         </section>
+
+        {!destinations.length && (
+          <section className="bg-ivory px-6 py-24 sm:px-10 sm:py-28">
+            <EmptyState message="No destinations available yet." />
+          </section>
+        )}
 
         {destinations.map((destination, index) => (
           <DestinationSection

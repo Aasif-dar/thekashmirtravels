@@ -98,6 +98,12 @@ export default function PlanTripForm({
     <form onSubmit={handleSubmit} noValidate className="relative space-y-7">
       <div>
         <p className={labelClass}>Destinations of interest</p>
+        {destinations.length === 0 && (
+          <p className="mt-3 text-[15px] text-charcoal/50">
+            Destinations will be listed here soon — mention where you would like
+            to go in the notes below.
+          </p>
+        )}
         <div className="mt-3 flex flex-wrap gap-x-6 gap-y-3">
           {destinations.map((destination) => (
             <label

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { site } from "@/data/site";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
+import EmptyState from "./EmptyState";
 
 const spans = [
   "sm:col-span-2 sm:row-span-2",
@@ -20,6 +21,8 @@ const items = site.gallery.photos.map((image, index) => ({
   span: spans[index % spans.length],
 }));
 
+// ADMIN: gallery photos come from site.gallery.photos (src/data/site.ts).
+// Fields: image (src, alt, location). See ADMIN_DATA_GUIDE.md.
 export default function Gallery() {
   return (
     <section id="gallery" className="bg-charcoal px-6 py-24 sm:px-10 sm:py-32">
@@ -29,6 +32,10 @@ export default function Gallery() {
           title={site.gallery.title}
           tone="light"
         />
+
+        {!items.length && (
+          <EmptyState message="Gallery coming soon." tone="light" />
+        )}
 
         <div className="mt-14 grid grid-cols-2 gap-3 sm:auto-rows-[180px] sm:grid-cols-4 sm:gap-3">
           {items.map((item, index) => (

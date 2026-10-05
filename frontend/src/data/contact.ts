@@ -2,7 +2,7 @@ export interface ContactInfo {
   email: string;
   phone: string;
   whatsappNumber: string; // digits only, country code first, no plus sign
-  instagram: string; // handle, e.g. "@thekashmirtravels"
+  instagram: string; // handle, e.g. "@fastpacker"
   instagramUrl: string;
   facebookUrl: string;
   location: string; // short, e.g. footer line
@@ -12,12 +12,12 @@ export interface ContactInfo {
 
 // Placeholder contact details — replace with the real business details before launch.
 export const contact: ContactInfo = {
-  email: "hello@thekashmirtravels.com",
+  email: "hello@fastpacker.com",
   phone: "+91 00000 00000",
   whatsappNumber: "910000000000",
-  instagram: "@thekashmirtravels",
-  instagramUrl: "https://instagram.com/thekashmirtravels",
-  facebookUrl: "https://facebook.com/thekashmirtravels",
+  instagram: "@fastpacker",
+  instagramUrl: "https://instagram.com/fastpacker",
+  facebookUrl: "https://facebook.com/fastpacker",
   location: "Srinagar, Kashmir, India",
   address: "Srinagar, Jammu & Kashmir, India",
   mapsUrl: "https://maps.google.com/?q=Srinagar,Kashmir",

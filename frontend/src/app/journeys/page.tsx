@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import EmptyState from "@/components/EmptyState";
 import JourneyCard from "@/components/JourneyCard";
 import { getDestinations, getJourneys, routeNames } from "@/lib/queries";
 import { images } from "@/data/images";
@@ -46,6 +47,9 @@ export default async function JourneysPage() {
 
         <section className="bg-parchment px-6 py-20 sm:px-10 sm:py-28">
           <div className="mx-auto max-w-6xl">
+            {!journeys.length && (
+              <EmptyState message="Our journeys are being prepared." />
+            )}
             {journeys.map((journey) => (
               <JourneyCard
                 key={journey.slug}
