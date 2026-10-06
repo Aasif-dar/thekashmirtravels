@@ -12,12 +12,12 @@ export interface ContactInfo {
 
 // Placeholder contact details — replace with the real business details before launch.
 export const contact: ContactInfo = {
-  email: "hello@fastpacker.com",
-  phone: "+91 00000 00000",
-  whatsappNumber: "910000000000",
+  email: "packerfast149@gmail.com",
+  phone: "+91 9103118128",
+  whatsappNumber: "+91 9103118128",
   instagram: "@fastpacker",
-  instagramUrl: "https://instagram.com/fastpacker",
-  facebookUrl: "https://facebook.com/fastpacker",
+  instagramUrl: "https://www.instagram.com/fastpackertourandtravels_?stkn=bGVkNmllcTIyOXpr&utm_source=qr",
+  facebookUrl: "https://www.facebook.com/share/19aRKC6NDy/?mibextid=wwXIfr",
   location: "Srinagar, Kashmir, India",
   address: "Srinagar, Jammu & Kashmir, India",
   mapsUrl: "https://maps.google.com/?q=Srinagar,Kashmir",
