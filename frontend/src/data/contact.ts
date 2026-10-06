@@ -5,21 +5,26 @@ export interface ContactInfo {
   instagram: string; // handle, e.g. "@fastpacker"
   instagramUrl: string;
   facebookUrl: string;
-  location: string; // short, e.g. footer line
+  location: string;
   address: string;
   mapsUrl: string;
 }
 
-// Placeholder contact details — replace with the real business details before launch.
 export const contact: ContactInfo = {
   email: "packerfast149@gmail.com",
-phone: "+919103118128",
-whatsappNumber: "919103118128?text=Hello%20Fastpacker",
+  phone: "+919103118128",
+  whatsappNumber: "919103118128",
+
   instagram: "@fastpacker",
-  instagramUrl: "https://www.instagram.com/fastpackertourandtravels_?stkn=bGVkNmllcTIyOXpr&utm_source=qr",
-  facebookUrl: "https://www.facebook.com/share/19aRKC6NDy/?mibextid=wwXIfr",
+  instagramUrl:
+    "https://www.instagram.com/fastpackertourandtravels_?stkn=bGVkNmllcTIyOXpr&utm_source=qr",
+
+  facebookUrl:
+    "https://www.facebook.com/share/19aRKC6NDy/?mibextid=wwXIfr",
+
   location: "Srinagar, Kashmir, India",
   address: "Srinagar, Jammu & Kashmir, India",
+
   mapsUrl: "https://maps.google.com/?q=Srinagar,Kashmir",
 };
 
