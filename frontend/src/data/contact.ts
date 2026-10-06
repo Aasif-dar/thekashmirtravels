@@ -13,8 +13,8 @@ export interface ContactInfo {
 // Placeholder contact details — replace with the real business details before launch.
 export const contact: ContactInfo = {
   email: "packerfast149@gmail.com",
-  phone: "+91 9103118128",
-  whatsappNumber: "+91 9103118128",
+phone: "+919103118128",
+whatsappNumber: "919103118128?text=Hello%20Fastpacker",
   instagram: "@fastpacker",
   instagramUrl: "https://www.instagram.com/fastpackertourandtravels_?stkn=bGVkNmllcTIyOXpr&utm_source=qr",
   facebookUrl: "https://www.facebook.com/share/19aRKC6NDy/?mibextid=wwXIfr",
