@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Field, buttonClass, inputClass, submitJson } from "@/components/admin/ui";
+import { PASSWORD_RULES } from "@/lib/passwordRules";
 
 export default function AccountPage() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -40,11 +41,11 @@ export default function AccountPage() {
             className={inputClass}
           />
         </Field>
-        <Field label="New password" hint="At least 8 characters.">
+        <Field label="New password" hint={PASSWORD_RULES}>
           <input
             type="password"
             required
-            minLength={8}
+            minLength={10}
             autoComplete="new-password"
             value={newPassword}
             onChange={(event) => setNewPassword(event.target.value)}

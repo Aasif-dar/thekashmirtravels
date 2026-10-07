@@ -4,11 +4,8 @@ import { sendOwnerEmail } from "@/lib/mail";
 import { getDestinations, getJourneyBySlug } from "@/lib/queries";
 import { requestRepo } from "@/lib/repo";
 import { requestSchema } from "@/lib/requestSchemas";
-import {
-  emailSubject,
-  summaryLines,
-  type RequestSummary,
-} from "@/lib/requestSummary";
+import { enquiryEmail } from "@/lib/emailTemplates";
+import { summaryLines, type RequestSummary } from "@/lib/requestSummary";
 import type { NewRequest } from "@/lib/types";
 
 // DB write + SMTP can take a few seconds on a cold start.
@@ -119,11 +116,8 @@ export async function POST(request: Request) {
     // b) Email the owner. A failure is logged, never shown to the customer.
     let emailSent = false;
     try {
-      await sendOwnerEmail({
-        subject: emailSubject(summary),
-        text: summaryLines(summary).join("\n"),
-        replyTo: data.email,
-      });
+      const message = enquiryEmail(summary, summaryLines(summary).join("\n"));
+      await sendOwnerEmail({ ...message, replyTo: data.email });
       emailSent = true;
       if (savedId) await requestRepo.markEmailSent(savedId);
     } catch (error) {

@@ -1,17 +1,23 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import DemoBanner from "@/components/admin/DemoBanner";
 import { DemoProvider } from "@/components/admin/DemoContext";
 import LogoutButton from "@/components/admin/LogoutButton";
 import { isDemoMode } from "@/lib/demo";
+import { isAdminSession } from "@/lib/session";
 
 // Admin data must always be fresh and per-request.
 export const dynamic = "force-dynamic";
 
-export default function PanelLayout({
+export default async function PanelLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // proxy.ts only checks the JWT; this also rejects sessions revoked by a
+  // password change.
+  if (!(await isAdminSession())) redirect("/admin/login");
+
   const demo = isDemoMode();
 
   return (

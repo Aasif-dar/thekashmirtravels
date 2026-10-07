@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { ZodError } from "zod";
-import { isAdmin } from "@/lib/auth";
+import { isAdminSession } from "@/lib/session";
 
 export const json = (data: unknown, status = 200) =>
   NextResponse.json(data, { status });
@@ -13,9 +13,12 @@ export const publicJson = (data: unknown) =>
     },
   });
 
-/** Second line of defence behind proxy.ts — returns a 401 response or null. */
+/**
+ * Second line of defence behind proxy.ts — returns a 401 response or null.
+ * Also rejects sessions issued before the admin's last password change.
+ */
 export async function requireAdmin() {
-  return (await isAdmin()) ? null : json({ error: "Unauthorized" }, 401);
+  return (await isAdminSession()) ? null : json({ error: "Unauthorized" }, 401);
 }
 
 export function handleError(error: unknown) {

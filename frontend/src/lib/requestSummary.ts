@@ -1,5 +1,5 @@
-// Builds the human-readable request summary used in both the owner email
-// and the WhatsApp message, so the two always list the same details.
+// Builds the human-readable request summary used in the WhatsApp message and
+// the plain-text part of the owner email (the HTML part is in emailTemplates).
 
 export interface RequestSummary {
   type: "booking" | "custom";
@@ -53,9 +53,3 @@ export function whatsappText(s: RequestSummary) {
   return [intro, "", ...summaryLines(s)].join("\n");
 }
 
-export function emailSubject(s: RequestSummary) {
-  const clean = (value: string) => value.replace(/[\r\n]+/g, " ").trim();
-  return s.type === "booking"
-    ? `New booking: ${clean(s.journey?.title ?? "journey")}`
-    : `New custom trip request: ${clean(s.name)}`;
-}

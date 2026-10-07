@@ -40,7 +40,9 @@ There is no signup. Create (or reset) the admin in the database with (uses `MONG
 ```bash
 npm run create-admin -- you@example.com "a-strong-password"
 ```
-Running it again for the same email updates the password.
+Running it again for the same email updates the password (and signs out existing sessions).
+
+**Use a real inbox you control.** Admin sign-in is two-step: after the password, a 6-digit code is emailed (via `GMAIL_USER`) to the admin's address. It expires in 10 minutes, can be used once, allows 5 attempts, and can be resent after 60 seconds (max 5 codes per hour). "Forgot password?" on the login page uses the same kind of emailed code.
 
 ## 8. Add your content
 The project ships with **no sample data**: until you add real records, the public pages show quiet "coming soon" empty states. Sign in at `/admin` and add your destinations and journeys. See `ADMIN_DATA_GUIDE.md` for what each section expects.
