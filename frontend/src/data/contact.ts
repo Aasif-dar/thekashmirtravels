@@ -12,8 +12,8 @@ export interface ContactInfo {
 
 export const contact: ContactInfo = {
   email: "packerfast149@gmail.com",
-  phone: "+919103118128",
-  whatsappNumber: "919103118128",
+  phone: "+919469518128",
+  whatsappNumber: "919469518128",
 
   instagram: "@fastpacker",
   instagramUrl:
@@ -22,10 +22,10 @@ export const contact: ContactInfo = {
   facebookUrl:
     "https://www.facebook.com/share/19aRKC6NDy/?mibextid=wwXIfr",
 
-  location: "Srinagar, Kashmir, India",
-  address: "Srinagar, Jammu & Kashmir, India",
+  location: " Budshah Nagar Natipora,Srinagar, Kashmir, India",
+  address: " Budshah Nagar Natipora,Srinagar, Kashmir, India",
 
-  mapsUrl: "https://maps.google.com/?q=Srinagar,Kashmir",
+  mapsUrl: "https://maps.app.goo.gl/aUjiGLLTbMVUekWf6",
 };
 
 export const whatsappLink = (message?: string) =>
