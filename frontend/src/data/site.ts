@@ -43,7 +43,7 @@ export interface SiteConfig {
 }
 
 export const site: SiteConfig = {
-  url: "https://thekashmirtravels.com",
+  url: "https://fastpacker.in",
   brandName: "Fastpacker",
   logo: { text: "Fastpacker" },
   tagline: "Curated Journeys Through Kashmir",
@@ -100,6 +100,6 @@ export const site: SiteConfig = {
       width: 1920,
       height: 1281,
       alt: "Sunset over Dal Lake, Srinagar",
-    },
+    }, 
   },
 };

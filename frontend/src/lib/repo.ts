@@ -12,6 +12,7 @@ import type {
   Journey,
   JourneyInput,
   NewRequest,
+  SitemapEntry,
 } from "@/lib/types";
 
 // The single place that touches data storage. Every function uses MongoDB,
@@ -51,6 +52,18 @@ export const destinationRepo = {
       .sort({ createdAt: 1 })
       .lean();
     return docs.map((doc) => serialize<Destination>(doc));
+  },
+
+  /** Slugs and edit times only — serialize() drops the timestamps. */
+  async sitemapEntries(): Promise<SitemapEntry[]> {
+    if (isDemoMode()) {
+      return demoStore().destinations.map(({ slug }) => ({ slug }));
+    }
+    await connectDb();
+    const docs = await DestinationModel.find({}, { slug: 1, updatedAt: 1 })
+      .sort({ createdAt: 1 })
+      .lean<{ slug: string; updatedAt?: Date }[]>();
+    return docs.map(({ slug, updatedAt }) => ({ slug, updatedAt }));
   },
 
   async get(slug: string): Promise<Destination | null> {
@@ -122,6 +135,18 @@ export const journeyRepo = {
       .sort({ createdAt: 1 })
       .lean();
     return docs.map((doc) => serialize<Journey>(doc));
+  },
+
+  /** Slugs and edit times only — serialize() drops the timestamps. */
+  async sitemapEntries(): Promise<SitemapEntry[]> {
+    if (isDemoMode()) {
+      return demoStore().journeys.map(({ slug }) => ({ slug }));
+    }
+    await connectDb();
+    const docs = await JourneyModel.find({}, { slug: 1, updatedAt: 1 })
+      .sort({ createdAt: 1 })
+      .lean<{ slug: string; updatedAt?: Date }[]>();
+    return docs.map(({ slug, updatedAt }) => ({ slug, updatedAt }));
   },
 
   async get(slug: string): Promise<Journey | null> {

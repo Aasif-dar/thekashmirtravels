@@ -41,8 +41,10 @@ export const metadata: Metadata = {
     title: site.seo.title,
     description: site.seo.description,
   },
+  // "./" resolves against each route's own path, so every page is its own
+  // canonical (a fixed URL here would point every page at the homepage).
   alternates: {
-    canonical: site.url,
+    canonical: "./",
   },
 };
 

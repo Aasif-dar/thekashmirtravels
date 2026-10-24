@@ -47,6 +47,12 @@ export interface Journey {
 export type DestinationInput = Omit<Destination, "id">;
 export type JourneyInput = Omit<Journey, "id">;
 
+/** A public page's slug and last edit time, for sitemap.xml. */
+export interface SitemapEntry {
+  slug: string;
+  updatedAt?: Date; // absent in demo mode
+}
+
 /** A booking / custom-trip request as shown in the admin. */
 export interface AdminRequest {
   id: string;

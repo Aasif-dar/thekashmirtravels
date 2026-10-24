@@ -1,37 +1,56 @@
 import type { MetadataRoute } from "next";
-import { getDestinations, getJourneys } from "@/lib/queries";
+import {
+  getDestinationSitemapEntries,
+  getJourneySitemapEntries,
+} from "@/lib/queries";
+import type { SitemapEntry } from "@/lib/types";
 import { site } from "@/data/site";
 
-const siteUrl = site.url;
+// Same cadence as the destination and journey pages it lists.
+export const revalidate = 3600;
+
+const url = (path: string) => `${site.url}${path}`;
+
+/** A listing page last changed when its most recently edited item did. */
+function latest(entries: SitemapEntry[]) {
+  const times = entries.flatMap((entry) =>
+    entry.updatedAt ? [new Date(entry.updatedAt).getTime()] : []
+  );
+  return times.length ? new Date(Math.max(...times)) : undefined;
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [journeys, destinations] = await Promise.all([
-    getJourneys(),
-    getDestinations(),
+  const [destinations, journeys] = await Promise.all([
+    getDestinationSitemapEntries(),
+    getJourneySitemapEntries(),
   ]);
 
+  // These pages have no stored edit date, so they carry no lastModified.
   const staticRoutes = [
     "",
-    "/journeys",
-    "/destinations",
     "/experiences",
     "/about",
     "/plan-trip",
     "/contact",
-  ].map((route) => ({
-    url: `${siteUrl}${route}`,
-    lastModified: new Date(),
+    "/privacy",
+    "/terms",
+  ].map((path) => ({ url: url(path) }));
+
+  const destinationRoutes = destinations.map(({ slug, updatedAt }) => ({
+    url: url(`/destinations/${slug}`),
+    lastModified: updatedAt,
   }));
 
-  const journeyRoutes = journeys.map((journey) => ({
-    url: `${siteUrl}/journeys/${journey.slug}`,
-    lastModified: new Date(),
+  const journeyRoutes = journeys.map(({ slug, updatedAt }) => ({
+    url: url(`/journeys/${slug}`),
+    lastModified: updatedAt,
   }));
 
-  const destinationRoutes = destinations.map((destination) => ({
-    url: `${siteUrl}/destinations/${destination.slug}`,
-    lastModified: new Date(),
-  }));
-
-  return [...staticRoutes, ...destinationRoutes, ...journeyRoutes];
+  return [
+    ...staticRoutes,
+    { url: url("/destinations"), lastModified: latest(destinations) },
+    { url: url("/journeys"), lastModified: latest(journeys) },
+    ...destinationRoutes,
+    ...journeyRoutes,
+  ];
 }

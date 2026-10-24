@@ -1,7 +1,7 @@
 import { hasDb } from "@/lib/db";
 import { isDemoMode } from "@/lib/demo";
 import { destinationRepo, journeyRepo } from "@/lib/repo";
-import type { Destination, Journey } from "@/lib/types";
+import type { Destination, Journey, SitemapEntry } from "@/lib/types";
 
 // ADMIN: the public site renders whatever these return. Destinations and
 // journeys are managed in /admin; see ADMIN_DATA_GUIDE.md for the fields.
@@ -36,6 +36,14 @@ export function getJourneys(options: { featured?: boolean } = {}) {
 
 export function getJourneyBySlug(slug: string) {
   return read<Journey | null>(() => journeyRepo.get(slug), null);
+}
+
+export function getDestinationSitemapEntries() {
+  return read<SitemapEntry[]>(() => destinationRepo.sitemapEntries(), []);
+}
+
+export function getJourneySitemapEntries() {
+  return read<SitemapEntry[]>(() => journeyRepo.sitemapEntries(), []);
 }
 
 /** Display names for a journey's linked destination slugs, in route order. */
