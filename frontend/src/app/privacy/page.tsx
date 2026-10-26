@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { pageMetadata } from "@/lib/seo";
 import { contact } from "@/data/contact";
 
-export const metadata: Metadata = {
+// Placeholder text for now: noindex until the real policy is written.
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
-};
+  description: "How Fastpacker handles the details you share when you enquire or book.",
+  path: "/privacy",
+  noindex: true,
+});
 
 export default function PrivacyPage() {
   return (

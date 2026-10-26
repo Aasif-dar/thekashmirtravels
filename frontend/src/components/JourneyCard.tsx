@@ -3,13 +3,16 @@ import Link from "next/link";
 import BookJourney from "@/components/request/BookJourney";
 import { ArrowRight } from "lucide-react";
 import type { Journey } from "@/lib/types";
+import { altText } from "@/lib/seo";
 
 export default function JourneyCard({
   journey,
   route,
+  as: Heading = "h3",
 }: {
   journey: Journey;
   route: string[];
+  as?: "h2" | "h3";
 }) {
   return (
     <div
@@ -18,7 +21,7 @@ export default function JourneyCard({
       <div className="relative aspect-[4/3] overflow-hidden sm:col-span-4">
         <Image
           src={journey.coverImage.src}
-          alt={journey.coverImage.alt}
+          alt={altText(journey.coverImage, journey.title)}
           fill
           sizes="(min-width: 640px) 33vw, 100vw"
           className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]"
@@ -28,9 +31,9 @@ export default function JourneyCard({
       <div className="flex flex-col justify-between sm:col-span-8">
         <div>
           <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h3 className="font-serif text-2xl text-charcoal sm:text-3xl">
+            <Heading className="font-serif text-2xl text-charcoal sm:text-3xl">
               {journey.title}
-            </h3>
+            </Heading>
             <span className="text-[12px] font-medium tracking-[0.15em] text-deep-green/80 uppercase">
               {journey.duration}
             </span>
@@ -66,6 +69,7 @@ export default function JourneyCard({
               className="flex items-center gap-2 text-[13px] font-medium tracking-[0.08em] text-deep-green uppercase after:absolute after:inset-0"
             >
               View Journey
+              <span className="sr-only">: {journey.title}</span>
               <ArrowRight
                 size={16}
                 className="transition-transform duration-300 group-hover:translate-x-1"

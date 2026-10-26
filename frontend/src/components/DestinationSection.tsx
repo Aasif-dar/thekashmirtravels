@@ -3,6 +3,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import type { Destination } from "@/lib/types";
+import { altText } from "@/lib/seo";
 
 export default function DestinationSection({
   destination,
@@ -17,6 +18,11 @@ export default function DestinationSection({
   const paragraphs = destination.description
     .split(/\n{2,}/)
     .map((p) => p.trim())
+    .filter(Boolean);
+  // Highlights are often entered as one "A • B • C" line; list them separately.
+  const highlights = destination.highlights
+    .flatMap((highlight) => highlight.split("•"))
+    .map((highlight) => highlight.trim())
     .filter(Boolean);
 
   return (
@@ -37,7 +43,7 @@ export default function DestinationSection({
           <Reveal className="relative aspect-[4/5] overflow-hidden sm:aspect-[4/3.4]">
             <Image
               src={image.src}
-              alt={image.alt}
+              alt={altText(image, `${destination.title}, Kashmir`)}
               fill
               sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
@@ -48,6 +54,7 @@ export default function DestinationSection({
             <SectionHeading
               eyebrow={destination.tagline || destination.region}
               title={destination.title}
+              as={detail ? "h1" : "h2"}
             />
             <div className="mt-6 space-y-4">
               {paragraphs.map((paragraph) => (
@@ -60,9 +67,9 @@ export default function DestinationSection({
               ))}
             </div>
 
-            {destination.highlights.length > 0 && (
+            {highlights.length > 0 && (
               <ul className="mt-8 space-y-2.5 border-t border-charcoal/10 pt-6">
-                {destination.highlights.map((highlight) => (
+                {highlights.map((highlight) => (
                   <li
                     key={highlight}
                     className="flex gap-3 text-[14px] text-charcoal/70"

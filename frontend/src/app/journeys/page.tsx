@@ -6,12 +6,15 @@ import EmptyState from "@/components/EmptyState";
 import JourneyCard from "@/components/JourneyCard";
 import { getDestinations, getJourneys, routeNames } from "@/lib/queries";
 import { images } from "@/data/images";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Journeys",
+export const metadata: Metadata = pageMetadata({
+  title: "Kashmir Tour Packages & Itineraries",
   description:
-    "A small set of curated Kashmir itineraries — the classic route, a slower pace, winter in the snow, and journeys built for two.",
-};
+    "Curated Kashmir tour packages from a Srinagar-based team. Compare trip lengths, routes and who each itinerary suits, then book online or plan a custom trip.",
+  path: "/journeys",
+  image: { url: images.pahalgam.src, alt: images.pahalgam.alt },
+});
 
 export const revalidate = 3600;
 
@@ -52,6 +55,7 @@ export default async function JourneysPage() {
             )}
             {journeys.map((journey) => (
               <JourneyCard
+                as="h2"
                 key={journey.slug}
                 journey={journey}
                 route={routeNames(journey, destinations)}

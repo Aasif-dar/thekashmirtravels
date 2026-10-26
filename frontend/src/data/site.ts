@@ -48,7 +48,7 @@ export const site: SiteConfig = {
   logo: { text: "Fastpacker" },
   tagline: "Curated Journeys Through Kashmir",
   hero: {
-    eyebrow: "Kashmir • India",
+    eyebrow: "Kashmir Tours & Travel • India",
     heading: "Some journeys stay with you.",
     subheading:
       "Discover Kashmir through thoughtfully planned journeys, local experiences and stays chosen by people who know the valley.",
@@ -83,9 +83,9 @@ export const site: SiteConfig = {
     blurb: "Journeys through Kashmir, planned by people who call the valley home.",
   },
   seo: {
-    title: "Fastpacker | Kashmir Travel & Tours",
+    title: "Fastpacker | Kashmir Tour Packages & Travel Planning",
     description:
-      "Fastpacker is a Kashmir-based tour and travel company. Discover Kashmir through thoughtfully planned journeys, handpicked stays and authentic local experiences across Srinagar, Gulmarg, Pahalgam and beyond.",
+      "Srinagar-based Kashmir travel company. Explore curated tour packages and custom trips across Srinagar, Gulmarg, Pahalgam and Sonamarg with a local team.",
     keywords: [
       "Fastpacker",
       "Kashmir travel",

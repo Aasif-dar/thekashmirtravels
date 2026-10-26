@@ -5,14 +5,16 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import PlanTripForm from "@/components/request/PlanTripForm";
 import { getDestinations } from "@/lib/queries";
+import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  title: "Plan Your Trip",
+export const metadata: Metadata = pageMetadata({
+  title: "Plan a Custom Kashmir Trip",
   description:
-    "Tell us how you want to travel Kashmir and we'll shape a custom itinerary around it.",
-};
+    "Tell us your dates, interests and budget and we'll shape a custom Kashmir itinerary around how you want to travel.",
+  path: "/plan-trip",
+});
 
 export default async function PlanTripPage() {
   const destinations = (await getDestinations()).map(({ slug, title }) => ({

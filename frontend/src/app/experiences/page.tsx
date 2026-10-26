@@ -5,12 +5,15 @@ import Footer from "@/components/Footer";
 import Experiences from "@/components/Experiences";
 import FinalCTA from "@/components/FinalCTA";
 import { images } from "@/data/images";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Experiences",
+export const metadata: Metadata = pageMetadata({
+  title: "Kashmir Experiences & Things to Do",
   description:
-    "A handful of premium Kashmir experiences — mornings on Dal Lake, a night on a houseboat, Gulmarg in winter, and slow evenings by the Lidder.",
-};
+    "Kashmir experiences worth building a day around: shikara rides on Dal Lake, the Gulmarg Gondola, Pahalgam's valleys, Kashmiri food and local crafts.",
+  path: "/experiences",
+  image: { url: images.shikara.src, alt: images.shikara.alt },
+});
 
 export default function ExperiencesPage() {
   return (

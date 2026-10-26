@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DestinationSection from "@/components/DestinationSection";
 import JourneyCard from "@/components/JourneyCard";
 import WhatsAppTopic from "@/components/WhatsAppTopic";
+import DestinationGuide from "@/components/DestinationGuide";
+import JsonLd from "@/components/JsonLd";
+import { destinationGuides } from "@/data/destinationGuides";
+import { altText, destinationJsonLd, pageMetadata, truncate } from "@/lib/seo";
 import {
   getDestinationBySlug,
   getDestinations,
@@ -30,11 +35,17 @@ export async function generateMetadata({
   const destination = await getDestinationBySlug(slug);
   if (!destination) return {};
 
-  return {
-    title: destination.title,
-    description:
-      destination.description.split(/\n{2,}/)[0] || destination.tagline,
-  };
+  return pageMetadata({
+    title: `${destination.title}, Kashmir – Travel Guide & Tours`,
+    description: truncate(
+      destination.description.split(/\n{2,}/)[0] || destination.tagline
+    ),
+    path: `/destinations/${destination.slug}`,
+    image: {
+      url: destination.coverImage.src,
+      alt: altText(destination.coverImage, `${destination.title}, Kashmir`),
+    },
+  });
 }
 
 export default async function DestinationDetailPage({
@@ -54,9 +65,12 @@ export default async function DestinationDetailPage({
     journey.destinations.includes(slug)
   );
   const gallery = destination.galleryImages.slice(1);
+  const guide = destinationGuides[destination.slug];
+  const others = destinations.filter((item) => item.slug !== slug);
 
   return (
     <>
+      <JsonLd data={destinationJsonLd(destination)} />
       <WhatsAppTopic name={destination.title} />
       <Navbar />
       <main>
@@ -66,14 +80,17 @@ export default async function DestinationDetailPage({
         {gallery.length > 0 && (
           <section className="bg-ivory px-6 pb-24 sm:px-10">
             <div className="mx-auto grid max-w-6xl gap-3 sm:grid-cols-3">
-              {gallery.map((image) => (
+              {gallery.map((image, index) => (
                 <div
                   key={image.src}
                   className="relative aspect-[4/3] overflow-hidden"
                 >
                   <Image
                     src={image.src}
-                    alt={image.alt}
+                    alt={altText(
+                      image,
+                      `${destination.title}, Kashmir – photo ${index + 2}`
+                    )}
                     fill
                     sizes="(min-width: 640px) 33vw, 100vw"
                     className="object-cover"
@@ -83,6 +100,8 @@ export default async function DestinationDetailPage({
             </div>
           </section>
         )}
+
+        {guide && <DestinationGuide title={destination.title} guide={guide} />}
 
         {journeys.length > 0 && (
           <section className="bg-parchment px-6 py-20 sm:px-10 sm:py-28">
@@ -97,6 +116,28 @@ export default async function DestinationDetailPage({
                   route={routeNames(journey, destinations)}
                 />
               ))}
+            </div>
+          </section>
+        )}
+
+        {others.length > 0 && (
+          <section className="bg-ivory px-6 py-20 sm:px-10 sm:py-24">
+            <div className="mx-auto max-w-6xl">
+              <h2 className="font-serif text-3xl text-charcoal">
+                More places to explore in Kashmir
+              </h2>
+              <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-4">
+                {others.map((item) => (
+                  <li key={item.slug}>
+                    <Link
+                      href={`/destinations/${item.slug}`}
+                      className="inline-flex w-fit items-center gap-2 border-b border-deep-green pb-1 text-[13px] font-medium tracking-[0.08em] text-deep-green uppercase transition-colors hover:border-charcoal hover:text-charcoal"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
         )}

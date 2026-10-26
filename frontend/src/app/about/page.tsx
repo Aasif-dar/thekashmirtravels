@@ -6,11 +6,14 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { images } from "@/data/images";
 import { site } from "@/data/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About",
+export const metadata: Metadata = pageMetadata({
+  title: "About Us – A Kashmir-Based Travel Team",
   description: site.about.description,
-};
+  path: "/about",
+  image: { url: images.houseboat.src, alt: images.houseboat.alt },
+});
 
 export default function AboutPage() {
   return (

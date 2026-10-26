@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Mail } from "lucide-react";
 import { contact, whatsappLink } from "@/data/contact";
 import { site } from "@/data/site";
+import { getDestinations, getJourneys } from "@/lib/queries";
 
 const nav = [
   { href: "/journeys", label: "Journeys" },
@@ -11,11 +12,16 @@ const nav = [
   { href: "/contact", label: "Contact" },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const [destinations, journeys] = await Promise.all([
+    getDestinations(),
+    getJourneys(),
+  ]);
+
   return (
     <footer className="bg-deep-green px-6 pt-20 pb-10 sm:px-10">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 sm:grid-cols-3">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <p className="font-serif text-xl text-ivory">
               {site.brandName}
@@ -42,6 +48,36 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+
+          {(destinations.length > 0 || journeys.length > 0) && (
+            <div>
+              <p className="text-[11px] font-medium tracking-[0.25em] text-ivory/50 uppercase">
+                Explore Kashmir
+              </p>
+              <ul className="mt-5 space-y-3">
+                {destinations.map((destination) => (
+                  <li key={destination.slug}>
+                    <Link
+                      href={`/destinations/${destination.slug}`}
+                      className="text-[15px] text-ivory/75 transition-colors hover:text-ivory"
+                    >
+                      {destination.title}
+                    </Link>
+                  </li>
+                ))}
+                {journeys.map((journey) => (
+                  <li key={journey.slug}>
+                    <Link
+                      href={`/journeys/${journey.slug}`}
+                      className="text-[15px] text-ivory/75 transition-colors hover:text-ivory"
+                    >
+                      {journey.title.split(" – ")[0]}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div>
             <p className="text-[11px] font-medium tracking-[0.25em] text-ivory/50 uppercase">

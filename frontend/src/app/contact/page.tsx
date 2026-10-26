@@ -4,12 +4,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import { contact, whatsappLink } from "@/data/contact";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact",
+export const metadata: Metadata = pageMetadata({
+  title: "Contact Us – Plan Your Kashmir Trip",
   description:
-    "Reach Fastpacker by WhatsApp or email, book a journey, or tell us about a custom trip.",
-};
+    "Reach Fastpacker in Srinagar by WhatsApp or email, book a Kashmir journey, or tell us about a custom trip.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

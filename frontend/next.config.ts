@@ -9,6 +9,17 @@ const demoMode =
   !process.env.MONGODB_URI;
 
 const nextConfig: NextConfig = {
+  // The Srinagar destination was first published as "srinagarr"; keep that
+  // already-indexed URL working.
+  async redirects() {
+    return [
+      {
+        source: "/destinations/srinagarr",
+        destination: "/destinations/srinagar",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com" },

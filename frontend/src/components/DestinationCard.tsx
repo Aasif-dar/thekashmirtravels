@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Destination } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { altText } from "@/lib/seo";
 
 export default function DestinationCard({
   destination,
@@ -25,7 +26,7 @@ export default function DestinationCard({
     >
       <Image
         src={destination.coverImage.src}
-        alt={destination.coverImage.alt}
+        alt={altText(destination.coverImage, `${destination.title}, Kashmir`)}
         fill
         sizes={imageSizes}
         priority={priority}

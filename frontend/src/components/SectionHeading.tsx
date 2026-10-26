@@ -8,6 +8,8 @@ type SectionHeadingProps = {
   align?: "left" | "center";
   tone?: "dark" | "light";
   className?: string;
+  /** Heading element; pages without another h1 pass "h1". */
+  as?: "h1" | "h2";
 };
 
 export default function SectionHeading({
@@ -17,6 +19,7 @@ export default function SectionHeading({
   align = "left",
   tone = "dark",
   className,
+  as: Heading = "h2",
 }: SectionHeadingProps) {
   return (
     <Reveal
@@ -36,14 +39,14 @@ export default function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2
+      <Heading
         className={cn(
           "font-serif text-4xl leading-[1.15] font-normal sm:text-5xl",
           tone === "dark" ? "text-charcoal" : "text-ivory"
         )}
       >
         {title}
-      </h2>
+      </Heading>
       {subtitle && (
         <p
           className={cn(

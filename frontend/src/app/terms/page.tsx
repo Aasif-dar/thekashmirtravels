@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { pageMetadata } from "@/lib/seo";
 import { contact } from "@/data/contact";
 
-export const metadata: Metadata = {
-  title: "Terms",
-};
+// Placeholder text for now: noindex until the real terms are written.
+export const metadata: Metadata = pageMetadata({
+  title: "Terms of Service",
+  description: "The terms that apply when you book a journey with Fastpacker.",
+  path: "/terms",
+  noindex: true,
+});
 
 export default function TermsPage() {
   return (

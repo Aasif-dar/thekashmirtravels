@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getDestinations } from "@/lib/queries";
 import DestinationCard from "./DestinationCard";
 import SectionHeading from "./SectionHeading";
@@ -20,6 +21,9 @@ export default async function Destinations() {
             title="The Valley, Your Way"
             subtitle="Places that each have a different mood."
           />
+          <Link href="/destinations" className="inline-flex w-fit items-center gap-2 border-b border-deep-green pb-1 text-[13px] font-medium tracking-[0.08em] text-deep-green uppercase transition-colors hover:border-charcoal hover:text-charcoal">
+            View all destinations
+          </Link>
         </div>
 
         {!first && <EmptyState message="No destinations available yet." />}
@@ -34,7 +38,6 @@ export default async function Destinations() {
                 destination={first}
                 className="aspect-[4/5] sm:aspect-[16/13] md:aspect-auto md:h-[560px]"
                 imageSizes="(min-width: 768px) 58vw, 100vw"
-                priority
               />
             </Reveal>
 

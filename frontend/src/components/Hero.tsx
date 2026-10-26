@@ -18,17 +18,19 @@ export default function Hero() {
       </div>
 
       <div className="relative mx-auto w-full min-w-0 max-w-7xl px-6 sm:px-10">
-        <p
-          className="animate-fade-up text-[11px] font-medium tracking-[0.35em] text-ivory/80 uppercase"
-          style={{ animationDelay: "200ms" }}
-        >
-          {site.hero.eyebrow}
-        </p>
-        <h1
-          className="animate-fade-up mt-6 max-w-3xl font-serif text-4xl leading-[1.1] font-normal text-ivory sm:text-6xl md:text-7xl"
-          style={{ animationDelay: "400ms" }}
-        >
-          {site.hero.heading}
+        <h1>
+          <span
+            className="animate-fade-up block text-[11px] font-medium tracking-[0.35em] text-ivory/80 uppercase"
+            style={{ animationDelay: "200ms" }}
+          >
+            {site.hero.eyebrow}
+          </span>{" "}
+          <span
+            className="animate-fade-up mt-6 block max-w-3xl font-serif text-4xl leading-[1.1] font-normal text-ivory sm:text-6xl md:text-7xl"
+            style={{ animationDelay: "400ms" }}
+          >
+            {site.hero.heading}
+          </span>
         </h1>
         <p
           className="animate-fade-up mt-7 max-w-md text-base leading-relaxed text-ivory/85 sm:text-lg"

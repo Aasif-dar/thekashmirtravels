@@ -6,14 +6,31 @@ import DestinationSection from "@/components/DestinationSection";
 import EmptyState from "@/components/EmptyState";
 import { getDestinations } from "@/lib/queries";
 import { images } from "@/data/images";
-
-export const metadata: Metadata = {
-  title: "Destinations",
-  description:
-    "Places across Kashmir, each with its own mood and explored at its own pace.",
-};
+import { pageMetadata, truncate } from "@/lib/seo";
 
 export const revalidate = 3600;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const names = (await getDestinations()).map((destination) => destination.title);
+  const list =
+    names.length > 1
+      ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`
+      : names[0];
+
+  return pageMetadata({
+    title: "Places to Visit in Kashmir",
+    description: truncate(
+      list
+        ? `Explore ${list}: what each Kashmir destination is known for, when to visit, and the journeys that include it.`
+        : "Explore Kashmir destinations with Fastpacker: what each place is known for and journeys that include it."
+    ),
+    path: "/destinations",
+    image: {
+      url: images.dalLakeChinarIslands.src,
+      alt: images.dalLakeChinarIslands.alt,
+    },
+  });
+}
 
 export default async function DestinationsPage() {
   const destinations = await getDestinations();

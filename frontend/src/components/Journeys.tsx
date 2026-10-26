@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getDestinations, getJourneys, routeNames } from "@/lib/queries";
 import JourneyCard from "./JourneyCard";
 import SectionHeading from "./SectionHeading";
@@ -37,6 +38,12 @@ export default async function Journeys() {
             </Reveal>
           ))}
         </div>
+
+        {journeys.length > 0 && (
+          <Link href="/journeys" className="mt-12 inline-flex w-fit items-center gap-2 border-b border-deep-green pb-1 text-[13px] font-medium tracking-[0.08em] text-deep-green uppercase transition-colors hover:border-charcoal hover:text-charcoal">
+            View all journeys
+          </Link>
+        )}
       </div>
     </section>
   );
