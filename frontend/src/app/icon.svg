@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>Fastpacker</title>
+  <rect width="64" height="64" rx="16" fill="#17352d"/>
+  <path fill="#f5f1e8" d="M16 12h32L24 28v24h-8z"/>
+  <path fill="#b69a68" d="M24 36h20l-12 8H24z"/>
+</svg>
